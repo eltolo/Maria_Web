@@ -1,0 +1,34 @@
+[
+    {
+        "role": "human",
+        "content": "Hols"
+    },
+    {
+        "role": "assistant",
+        "content": "Hola, ¿cómo estás? ¿En qué puedo ayudarte hoy?"
+    },
+    {
+        "role": "human",
+        "content": "todo bien vos?"
+    },
+    {
+        "role": "assistant",
+        "content": "¡Hola! Sí, estoy bien, ¿cómo estás tú? ¿En qué puedo ayudarte hoy?"
+    },
+    {
+        "role": "human",
+        "content": "Me llamo Jorge y tu?"
+    },
+    {
+        "role": "assistant",
+        "content": "Hola Jorge, soy un asistente virtual y no tengo un nombre como los humanos. ¿En qué puedo ayudarte hoy?"
+    },
+    {
+        "role": "human",
+        "content": "Bueno para dirijirme a ti, te llamare Maria, puede ser?"
+    },
+    {
+        "role": "assistant",
+        "content": "Claro, puedes llamarme Maria. ¿En qué puedo ayudarte?"
+    }
+]

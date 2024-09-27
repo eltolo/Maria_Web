@@ -1,0 +1,23 @@
+version: 2.0
+
+llama3:
+  servidores:
+    - base_url: "http://192.168.0.100:114347"
+      model: "llama3"
+    - base_url: "http://192.168.0.8:114347"
+      model: "gemma:2b"
+    - base_url: "http://localhost:114347"
+      model: "phi3:mini"
+  inicial: "Eres un asistente para tareas de respuesta a preguntas."
+  contexto: "{context}"  # Aquí se inyecta el contexto relevante
+  input_usuario: "{input}"  # Input del usuario que será formateado en el prompt
+  temperatura: 0.3
+  max_tokens: 1500
+  
+OpenAI:
+  inicial: "Eres un asistente útil y proporcionas información clara sobre {{ tema }}."
+  contexto: "Debes responder de manera concisa y precisa."
+  input_usuario: "{input}"  # Input del usuario
+  temperatura: 0.3
+  max_tokens: 2000
+

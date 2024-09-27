@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reconocimiento de Voz</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <h1>Reconocimiento de Voz con la API del Navegador</h1>
+
+    <button id="start-record-btn">Iniciar Reconocimiento de Voz</button>
+    <p id="transcription"></p>
+
+    <!-- Formulario para enviar la transcripción al servidor -->
+    <form id="upload-text-form" method="POST" action="{{ url_for('upload_text') }}">
+        <input type="hidden" name="transcription" id="transcription-input">
+        <button type="submit" id="submit-btn" hidden>Enviar Texto</button>
+    </form>
+
+    <script>
+        const startRecordBtn = document.getElementById('start-record-btn');
+        const transcriptionElement = document.getElementById('transcription');
+        const transcriptionInput = document.getElementById('transcription-input');
+        const submitBtn = document.getElementById('submit-btn');
+
+        startRecordBtn.addEventListener('click', () => {
+            const recognition = new webkitSpeechRecognition();  // Usamos webkit para Chrome
+            recognition.lang = 'es-ES';  // Configuramos el idioma español
+            recognition.start();  // Iniciamos el reconocimiento
+
+            recognition.onresult = event => {
+                const transcription = event.results[0][0].transcript;
+                transcriptionElement.textContent = "Has dicho: " + transcription;
+                transcriptionInput.value = transcription;  // Guardamos el texto transcrito en un input oculto
+                submitBtn.hidden = false;  // Mostramos el botón de enviar una vez que tengamos la transcripción
+            };
+
+            recognition.onerror = event => {
+                console.error("Error de reconocimiento de voz:", event.error);
+            };
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asistente Multimodal María - Web</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Asistente Multimodal María - Web</h1>
+
+    <!-- Formulario de texto -->
+    <form id="text-form">
+        <label for="input_text">Ingresa texto:</label><br>
+        <textarea name="input_text" id="input_text" rows="4"></textarea><br>
+        <button type="submit">Enviar Texto</button>
+    </form>
+
+    <!-- Formulario para subir documentos -->
+    <form action="{{ url_for('upload_document') }}" method="POST" enctype="multipart/form-data">
+        <label for="file">Subir Documento (.docx):</label><br>
+        <input type="file" name="file"><br>
+        <button type="submit">Subir Documento</button>
+    </form>
+
+
+    <!-- Área donde se mostrará el resultado -->
+    <div id="resultado">
+        <h2>Resultado:</h2>
+        <p id="output">Aquí aparecerá la respuesta...</p>
+    </div>
+
+    <!-- Script AJAX -->
+    <script>
+        $(document).ready(function() {
+            // Manejar el envío del formulario con AJAX
+            $('#text-form').on('submit', function(event) {
+                event.preventDefault();  // Prevenir la recarga de la página
+
+                const inputText = $('#input_text').val();  // Obtener el texto ingresado
+
+                $.ajax({
+                    url: "{{ url_for('send_text_ajax') }}",  // Ruta de Flask
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({input_text: inputText}),
+                    success: function(response) {
+                        // Actualizar el resultado en la página
+                        $('#output').text(response.output);
+                    },
+                    error: function(xhr, status, error) {
+                        alert("Hubo un error procesando tu solicitud.");
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
