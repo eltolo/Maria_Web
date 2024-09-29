@@ -1,7 +1,17 @@
 from openai import OpenAI
-OPENAI_API_KEY="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"
-# Instancia del cliente de OpenAI
 
+from dotenv import load_dotenv
+# Cargar las variables de entorno
+load_dotenv()
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+if not OPENAI_API_KEY:
+    logging.error("OPENAI_API_KEY no encontrado en las variables de entorno.")
+    sys.exit(1)
+# Configurar la clave API de OpenAI
+openai.api_key = OPENAI_API_KEY
+
+
+# Instancia del cliente de OpenAI
 client = OpenAI(api_key=OPENAI_API_KEY)
 
 def generate_response(prompt):

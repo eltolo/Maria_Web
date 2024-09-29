@@ -1,6 +1,18 @@
 from flask import Flask, render_template, request, jsonify, redirect, url_for, flash
 import os, sys
 import docx
+import openai
+
+from dotenv import load_dotenv
+# Cargar las variables de entorno
+load_dotenv()
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+if not OPENAI_API_KEY:
+    logging.error("OPENAI_API_KEY no encontrado en las variables de entorno.")
+    sys.exit(1)
+
+# Configurar la clave API de OpenAI
+openai.api_key = OPENAI_API_KEY
 
 # Ruta del directorio actual y añadir al sys.path
 project_path = os.getcwd()  
@@ -13,7 +25,7 @@ from modulo_db.db_manager import conectar_db, insertar_documento_y_fragmentos
 from modulo_llm.llm_manager import get_llm, send_query_to_ollama  # Importamos el modelo y la función para procesar el texto
 
 app = Flask(__name__)
-
+app.secret_key = '20clave24'  # Establece una clave secreta
 # Inicializar FAISS y la base de datos
 faiss_index = crear_indice_faiss(dimension_embedding=384)  # Ajusta el tamaño del embedding según tu modelo
 conn = conectar_db()

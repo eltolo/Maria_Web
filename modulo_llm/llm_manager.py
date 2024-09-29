@@ -1,13 +1,22 @@
 # modulo: llm_manager.py
-import requests
+import requests, os
 from openai import OpenAI
 from modulo_config.config import cargar_configuracion
 # Librerias Ollama
 from langchain_community.chat_models import ChatOllama
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 
+from dotenv import load_dotenv
+# Cargar las variables de entorno
+load_dotenv()
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+if not OPENAI_API_KEY:
+    logging.error("OPENAI_API_KEY no encontrado en las variables de entorno.")
+    sys.exit(1)
+
+print(api:OPENAI_API_KEY)
 # Instanciar el cliente de OpenAI para gpt-3.5-turbo
-OPENAI_API_KEY="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"
+
 client = OpenAI(api_key=OPENAI_API_KEY)
 
 class OpenAILLM:
